@@ -3,8 +3,9 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    background-attachment: fixed;
     font-weight: 300
-    /*color: #555;*/
+    color: #555;
     -webkit-font-smoothing: antialiased;
     -webkit-overflow-scrolling: touch;
     -webkit-background-size: cover;
@@ -28,6 +29,7 @@ p {
 	text-align: center;
 }
 
+
 nav {
 	opacity: 0.8;
 }
@@ -36,17 +38,19 @@ nav {
 
 
 
-.navbar{
+
+/*.navbar{
 	font-weight: 800;
 	font-size: 14px;
 	padding-top: 15px;
 	padding-bottom: 15px;
-}
+}*/
 
 
 
 #headerwarp {
 	text-align: center;
+	margin-top: 80px
 }
 
 
