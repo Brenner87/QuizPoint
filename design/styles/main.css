@@ -1,0 +1,53 @@
+body {
+	background-image: url(../img/pancil_main_background_light_1.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    font-weight: 300
+    color: #555;
+    -webkit-font-smoothing: antialiased;
+    -webkit-overflow-scrolling: touch;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    
+
+}
+
+h1, h2, h3, h4, h5 {
+	font-weight: 500;
+	color: #cc8800;
+}
+
+p {
+	line-height: 28px;
+	margin-bottom: 25px;
+}
+
+.centered {
+	text-align: center;
+}
+
+nav {
+	opacity: 0.8;
+}
+
+
+
+
+
+.navbar{
+	font-weight: 800;
+	font-size: 14px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+
+
+#headerwarp {
+	text-align: center;
+}
+
+
+
