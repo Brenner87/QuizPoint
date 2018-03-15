@@ -19,7 +19,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-        <a class="navbar-brand" href="#">QuizPoint</a>
+        <a class="navbar-brand" href="{% url 'main' %}">QuizPoint</a>
       </div>
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -44,12 +44,14 @@
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-          <li><form class="navbar-form navbar-left" role="search">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Пошук">
-          </div>
-          <button type="submit" class="btn btn-default">&nbsp<span class="glyphicon glyphicon-search"></span>&nbsp</button>
-        </form></li>
+          <li>
+              <form class="navbar-form navbar-left" role="search" method="GET">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Пошук" name="q">
+                </div>
+                <button type="submit" class="btn btn-default">&nbsp<span class="glyphicon glyphicon-search"></span>&nbsp</button>
+              </form>
+          </li>
             {% if user.is_authenticated %}
                 <li><a href="{% url 'logout_user' %}">Вийти({{ user.username }})</a></li>
             {% else %}
@@ -59,6 +61,15 @@
       </div>
     </div>
   </nav>
+    {% if errors %}
+        {% for error in errors %}
+            <div class="container centered" style="margin-top:60px;">
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
 
   {% block content %}
   {% endblock %}

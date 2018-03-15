@@ -62,5 +62,19 @@ nav {
 	margin-top: 80px
 }
 
+#result {
+	text-align: center;
+	margin-top: 80px
+}
 
+
+
+.choiceForm label {
+	word-wrap: break-word;
+}
+
+
+.choiceForm span {
+	margin: 20px;
+}
 

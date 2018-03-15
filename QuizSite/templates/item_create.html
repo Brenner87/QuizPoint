@@ -12,28 +12,6 @@
   		    </div>
   	    </div>
     </div>
-    <div hidden="true" id="formPattern"><div class="form container" id="question">
-        <form class="question form-horizontal" role="form">
-            <div id="errorMessage"></div>
-            <div class="form-group">
-                <label class="control-label col-md-2">Питання</label>
-                <div class="col-md-10">
-                    <input type="text" name="question" class="form-control">
-                </div>
-                <div><p class="text-muted">Варіанти відповіді:</p></div>
-                <div id="choices">
-            </div>
-            <div class="btn-group col-md-12 pull-right">
-                <button type= "button" id="addChoice" class="btn btn-default btn-group"><span class="glyphicon glyphicon-plus"></span></button>
-                <button type= "button" id="rmChoice" class="btn btn-default btn-group"><span class="glyphicon glyphicon-minus"></span></button></div>
-                <label for="correctAnswers" class="control-label col-md-6">Правильні варіанти(через кому):</label>
-                <div class="col-md-6">
-                    <input type="text" name="correctAnswers" class="form-control">
-                </div>
-            </div>
-        </form>
-    </div></div>
-    <div hidden="true" id="choicePattern"><label for="choice" class="control-label col-md-2"></label><div class="col-md-10"><input type="text" class="form-control"></div></div>
     {% if form.errors or errors %}
         {% for error in form.errors %}
         <p>{{ error }}</p>
@@ -60,7 +38,7 @@
             {% for field in form.visible_fields %}
                 <div class="form-group">
                     <!--<div class="col-md-6">-->
-                    {{ field.label_tag }}
+                    <label class="text-muted" for="{{ field.id_for_label }}">{{ field.label }}</label>
                     {% if form.is_bound %}
                         {% if field.errors %}
                             {% render_field field class="form-control is-invalid" %}
@@ -82,18 +60,20 @@
                 </div>
             {% endfor %}
             </div>
-            <button type= "button" id="append" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Питання</button>
-            <button type= "button" id="remove" class="btn btn-default"><span class="glyphicon glyphicon-minus"></span> Питання</button>
-            <button type="submit" class="btn btn-default" id="submit"><span class="glyphicon glyphicon-ok"></span> Створити</button>
+            <button type= "button" id="append" class="btn btn-default"><span class="glyphicon glyphicon-plus text-muted"></span> <span class="text-muted">Питання</span></button>
+            <button type= "button" id="remove" class="btn btn-default"><span class="glyphicon glyphicon-minus text-muted"></span> <span class="text-muted">Питання</span></button>
+            <button type="submit" class="btn btn-default" id="submit"><span class="glyphicon glyphicon-ok text-muted"></span> <span class="text-muted">Створити</span></button>
+            <a class="button btn btn-default" id="cancel" onclick="return confirm('Всі данні, що ви ввели будуть втрачені. Ви впевнені, що хочете відмінити?')" href="{% url 'my_item_list' %}"><span class="glyphicon glyphicon-ban-circle text-muted"></span> <span class="text-muted">Відмінити</span></a>
         </form>
 
         </div>
+{% include "patterns.html" %}
 {% block scripts %}
 <script src="{% static 'js/create_quiz.js' %}" type="text/javascript"></script>
 {% endblock %}
 <script type="text/javascript">
     var formPatter    = $('#formPattern');
-    var choicePattern = $('#choicePattern');
+    var choicePattern = $('#choiceCreatePattern');
     var quizContainer = $('#quiz');
     var appendButton  = $('#append');
     var submitButton  = $('#submit');

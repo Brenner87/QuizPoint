@@ -1,0 +1,26 @@
+<div hidden="true" id="questionPattern"><div class="row question"><h3 class="text-muted"></h3></div><div class="answers"></div></div>
+<div hidden="true" id="choiceDisplayPattern"><div class="radio"><label class="control-label text-muted"><input type="radio" name="question" value="1"><span></span></label></div></div>
+<div hidden="true" id="choiceCreatePattern"><label for="choice" class="control-label col-md-2"><span class="text-muted"></span></span></label><div class="col-md-10"><input type="text" class="form-control"></div></div>
+<div hidden="true" id="resultPattern"><div class="row centered"><h3 id="result" class="text-muted"></h3></div></div>
+<div hidden="true" id="formPattern"><div class="form container" id="question">
+        <form class="question form-horizontal" role="form">
+            <div id="errorMessage"></div>
+            <div class="form-group">
+                <label class="control-label col-md-2 text-muted">Питання</label>
+                <div class="col-md-10">
+                    <input type="text" name="question" class="form-control">
+                </div>
+                <div><p class="text-muted">Варіанти відповіді:</p></div>
+                <div id="choices">
+            </div>
+            <div class="btn-group col-md-12 pull-right">
+                <button type= "button" id="addChoice" class="btn btn-default btn-group"><span class="glyphicon glyphicon-plus text-muted"></span></button>
+                <button type= "button" id="rmChoice" class="btn btn-default btn-group"><span class="glyphicon glyphicon-minus text-muted"></span></button></div>
+                <label for="correctAnswers" class="control-label col-md-6 text-muted">Правильні варіанти(через кому):</label>
+                <div class="col-md-6">
+                    <input type="text" name="correctAnswers" class="form-control">
+                </div>
+            </div>
+        </form>
+    </div></div>
+<div hidden="true" id="choicePattern"><label for="choice" class="control-label col-md-2"><span class="text-muted"></span></span></label><div class="col-md-10"><input type="text" class="form-control"></div></div>

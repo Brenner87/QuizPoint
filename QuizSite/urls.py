@@ -16,5 +16,7 @@ urlpatterns= [
     path(r'item_delete/<int:id>/', views.item_delete, name='item_delete'),
     path(r'publish/<int:id>/', views.publish, name='publish'),
     path(r'hide/<int:id>/', views.hide, name='hide'),
+    path(r'edit_item/<int:id>/', views.edit_item, name='edit_item'),
+    #path(r'result', views.)
 
 ]

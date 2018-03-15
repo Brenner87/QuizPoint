@@ -19,6 +19,7 @@
                         <th class="text-muted"></th>
                         <th class="text-muted"></th>
                         <th class="text-muted"></th>
+                        <th class="text-muted"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,6 +39,12 @@
                             <a href="{% url 'hide' id=item.id %}" class="btn btn-default" onclick="return confirm('Прибрати тест з загального доступу?')">
                                 <span class="glyphicon glyphicon-eye-close">
                                 </span></a>
+                        </th>
+                        <th class="text-muted">
+                            <a href="{% url 'edit_item' id=item.id %}" class="btn btn-default" onclick="return confirm('Редагувати тест?')">
+                                <span class="glyphicon glyphicon-pencil">
+                                </span>
+                            </a>
                         </th>
                         <th class="text-muted">
                             <a href="{% url 'run_quiz' id=item.id %}" class="btn btn-default">
