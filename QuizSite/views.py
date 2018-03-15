@@ -116,7 +116,6 @@ def publish(request, id):
     else:
         return Http404()
 
-
 @login_required
 def hide(request, id):
     item=get_object_or_404(Item, id=id)
@@ -141,15 +140,16 @@ def create_item(request):
             item.created_date=datetime.now()
             item.save()
         return redirect('my_item_list')
-
     else:
         form=QuizForm()
         return render(request, 'item_create.html', {'form': form})
 
 @login_required
 def edit_item(request, id):
-    errors=[]
+    errors = []
     item = get_object_or_404(Item, id=id)
+    if request.user != item.author:
+        return Http404()
     if request.method=='POST':
         form=QuizForm(request.POST, instance=item)
         if form.is_valid():

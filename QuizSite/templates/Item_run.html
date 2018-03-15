@@ -40,6 +40,6 @@
         var resultPattern  = $('#resultPattern')
         var title          = $('#headerwarp')
         var titleText      = '{{ items.title }}'
-        runQuiz(quiz.question, quizContainer, questionPattern, choicePattern, submitButton, resultPattern, title, titleText)
+        $(document).ready(runQuiz(quiz.question, quizContainer, questionPattern, choicePattern, submitButton, resultPattern, title, titleText))
     </script>
 {% endblock %}

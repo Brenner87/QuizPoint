@@ -5,7 +5,12 @@ function generateQuestions(questions, questionPattern, choicePattern){
         for  (var i=0; i<questions.length; i++){
             var question=questions[i][0]
             var choices=questions[i].slice(1,-1)
-            var display= questions[i].slice(-1)[0] > 1 ? 'checkbox' : 'radio'
+            if (Array.isArray(questions[i].slice(-1)[0])){
+                var display= questions[i].slice(-1)[0].length > 1 ? 'checkbox' : 'radio'
+            }
+            else {
+                var display= questions[i].slice(-1)[0] > 1 ? 'checkbox' : 'radio'
+            }
             var answers=renderChoices(choicePattern, display ,i , choices)
             var renderedQuestion=renderQuestion(questionPattern, question, i, answers)
             output.push(renderedQuestion)
