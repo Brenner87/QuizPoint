@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 from datetime import datetime
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
@@ -6,14 +6,24 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.http import Http404
 from django.contrib import messages
+from django.http import JsonResponse
 import json
 
 from .models import Item
 from .forms import QuizForm, LoginForm, GetAnswers
+from .myutils import myrender as render
 
 
 def main(request):
-    return render(request, 'main.html', )
+    errors=[]
+    query = request.GET.get('q')
+    if query:
+        if len(query)>30:
+            errors.append('В рядку пошуку не може бути більше 30 сиволів')
+        else:
+            items = Item.published.filter(title__icontains=query)
+            return render(request, 'item_list.html', {'items': items, 'errors': errors})
+    return render(request, 'main.html', {})
 
 def categories(request):
     pass
@@ -96,6 +106,12 @@ def item_details(request):
 @login_required
 def my_item_list(request):
     items=Item.custom.authorsItems(request.user)
+    query = request.GET.get('q')
+    if query:
+        if len(query)>30:
+            errors.append('В рядку пошуку не може бути більше 30 сиволів')
+        else:
+            items = Item.custom.authorsItems(request.user).filter(title__icontains=query)
     return render(request, 'item_list_my.html', {'items': items})
 
 @login_required
@@ -139,7 +155,11 @@ def create_item(request):
             item.author = request.user
             item.created_date=datetime.now()
             item.save()
-        return redirect('my_item_list')
+            return redirect('my_item_list')
+        else:
+            #messages.error(request, "Error")
+            return render(request, 'item_create.html', {'form': form})
+
     else:
         form=QuizForm()
         return render(request, 'item_create.html', {'form': form})
@@ -166,6 +186,13 @@ def edit_item(request, id):
     else:
         form=QuizForm()
         return render(request, 'item_edit.html', {'form':form, 'item':item})
+@login_required
+def validate_quiz_title(request):
+    title=request.GET.get('title', None)
+    data={
+        'is_taken' : Item.object.filter(title__iexact=title).exists()
+    }
+    return JsonResponse(data)
 
 
 

@@ -17,6 +17,6 @@ urlpatterns= [
     path(r'publish/<int:id>/', views.publish, name='publish'),
     path(r'hide/<int:id>/', views.hide, name='hide'),
     path(r'edit_item/<int:id>/', views.edit_item, name='edit_item'),
-    #path(r'result', views.)
+    path(r'ajax/validate_quiz_title/', views.validate_quiz_title, name='validate_quiz_title'),
 
 ]

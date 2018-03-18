@@ -7,3 +7,9 @@ register=Library()
 @register.filter(is_safe=True)
 def js(obj):
     return mark_safe(json.dumps(obj))
+
+
+
+@register.filter(name='split')
+def split_filter(value, arg):
+    return value.split(arg)

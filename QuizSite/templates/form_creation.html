@@ -8,17 +8,26 @@
         </div>
     </div>
 </div>
-{% if form.errors or errors %}
-    {% for error in form.errors %}
-    <p>{{ error }}</p>
-    {% endfor %}
-    {% for error in errors %}
-    <p>{{ error }}</p>
-    {% endfor %}
-{% endif %}
 <div class="container">
+    {% if form.errors or errors %}
+        {% for error in form.errors %}
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+        {% endfor %}
+        {% for error in errors %}
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+        {% endfor %}
+    {% endif %}
     <form method="post" class="form-horizontal" role="form" id="submitForm">
         {% csrf_token %}
+        <!--{% if messages %}
+            {% for message in messages %}
+                <p>message</p>
+            {% endfor %}
+        {% endif %}-->
         {% for hidden_field in form.hidden_fields %}
             {{ hidden_field }}
         {% endfor %}
@@ -38,7 +47,7 @@
                         {% if field.errors %}
                             {% render_field field class="form-control is-invalid" %}
                             {% for error in field.errors %}
-                                <div class="invalid-feedback">
+                                <div class="alert alert-danger" role="alert">
                                     {{ error }}
                                 </div>
                             {% endfor %}

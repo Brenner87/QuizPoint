@@ -92,7 +92,7 @@ function addQuestion(quizContainer){
             }
         }
         var alertMessages=validateForm(name, questionText, question, answers)
-        question.push(answers.split(',').map(Number))
+        question.push(answers.split(',').map(Number).sort())
         question.unshift(questionText)
         return [question, alertMessages]
     }
@@ -100,6 +100,7 @@ function addQuestion(quizContainer){
     function validateForm(name, question, choices, answers){
         var alertMessages=[]
         !(name) && alertMessages.push('Вкажіть назву тесту.')
+        ajaxTitleValidation(name) && alertMessages.push('Тест з такою назвою вже існує')
         !(question) && alertMessages.push('Введіть текст питання.')
         choices.length<2 && alertMessages.push('Варіантів відповіді повинно бути мінімум 2.')
         !answers.trim() && alertMessages.push('Правильні варіанти повинні мати вигляд номерів, перерахованих черех кому.')
@@ -108,9 +109,13 @@ function addQuestion(quizContainer){
                 alertMessages.push('Варіанти відповіді повинні мати вигляд номерів, перерахованих черех кому.')
                 return false
             }
+            if (Number(this)>choices.length){
+                alertMessages.push('У правильних варіантах вказано неіснуючий варіант')
+                
+            }
         })
         if (alertMessages.length){ return alertMessages }
-        else {return undefined}
+        else { return undefined }
     }
 
     function alertNotification(alertMessages){
@@ -124,7 +129,6 @@ function addQuestion(quizContainer){
 
     function sendData(quizContainer) {
         quiz=createJson(quizContainer)
-        console.log(quiz.question.length)
         if (quiz.question.length){
             $('input[name=quiz]').val(JSON.stringify(quiz))
         }
@@ -142,4 +146,24 @@ function addQuestion(quizContainer){
         question.find('#addChoice').attr('id', 'addChoice'+questionNumber)
         question.find('#rmChoice').attr('id', 'rmChoice'+questionNumber)
         return question
+    }
+
+    function ajaxTitleValidation(name){
+        var is_exist=false
+        $.ajax({
+            url: '/ajax/validate_quiz_title/',
+            data: {
+                'title':name
+            },
+            dataType: 'json',
+            success: function(data){
+                if (data.is_taken) {
+                    is_exist=true
+                    alert("alert")
+                }
+            }
+        })
+        console.log(name)
+        console.log(is_exist)
+        return is_exist
     }

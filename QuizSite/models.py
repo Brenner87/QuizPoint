@@ -20,7 +20,7 @@ class CustomManager(models.Manager):
 
 class Item(models.Model):
     author = models.ForeignKey('auth.User', on_delete=models.SET_NULL, null=True, blank=True)
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=100, unique=True)
     quiz = models.TextField(max_length=10000)
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)

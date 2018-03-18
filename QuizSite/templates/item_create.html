@@ -8,6 +8,23 @@
 {% block scripts %}
 <script src="{% static 'js/create_subs.js' %}" type="text/javascript"></script>
 <script src="{% static 'js/create_quiz.js' %}" type="text/javascript"></script>
+<!--<script>
+    $('#id_title').change(function() {
+        var titleToCheck=$(this).val();
+        $.ajax({
+            url: '/ajax/validate_quiz_title/',
+            data: {
+                'title':titleToCheck
+            },
+            dataType: 'json',
+            success: function(data){
+                if (data.is_taken) {
+                    alert("Тест з такою назвою вже існує.");
+                }
+            }
+        });
+    })
+</script>-->
 {% endblock %}
 <script type="text/javascript">
     var formPatter    = $('#formPattern');

@@ -19,7 +19,6 @@
                         <th class="text-muted"></th>
                         <th class="text-muted"></th>
                         <th class="text-muted"></th>
-                        <th class="text-muted"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,17 +27,23 @@
                         <th class="text-muted">{{ item.title }}</th>
                         <th class="text-muted">{{ item.description }}</th>
                         <th class="text-muted">{{ item.author }}</th>
-                        <th class="text-muted">{{ item.published_date }}</th>
                         <th class="text-muted">
-                            <a href="{% url 'publish' id=item.id %}" class="btn btn-default" onclick="return confirm('Опублікувати тест?')">
-                                <span class="glyphicon glyphicon-eye-open">
-                                </span>
-                            </a>
+                        {% if item.published_date %}
+                            {{ item.published_date | date:"d.m.y h:m"  }}
+                        {% endif %}
                         </th>
                         <th class="text-muted">
-                            <a href="{% url 'hide' id=item.id %}" class="btn btn-default" onclick="return confirm('Прибрати тест з загального доступу?')">
-                                <span class="glyphicon glyphicon-eye-close">
-                                </span></a>
+                            {% if item.published_date %}
+                                <a href="{% url 'hide' id=item.id %}" class="btn btn-default" onclick="return confirm('Прибрати тест з загального доступу?')">
+                                    <span class="glyphicon glyphicon-eye-close">
+                                    </span>
+                                </a>
+                            {% else %}
+                                <a href="{% url 'publish' id=item.id %}" class="btn btn-default" onclick="return confirm('Опублікувати тест?')">
+                                    <span class="glyphicon glyphicon-eye-open">
+                                    </span>
+                                </a>
+                            {% endif %}
                         </th>
                         <th class="text-muted">
                             <a href="{% url 'edit_item' id=item.id %}" class="btn btn-default" onclick="return confirm('Редагувати тест?')">
