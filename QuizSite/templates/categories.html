@@ -1,0 +1,10 @@
+{% load myfilters %}
+{% with params=request.GET.urlencode %}
+    <ul class="dropdown-menu">
+        {% for item in categories %}
+            <li>
+                <a href="{% build_url 'cat' item.id params %}"><span>{{ item.name }}<span class="badge alignright">{{ item.number_of }}</span></span></a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endwith %}

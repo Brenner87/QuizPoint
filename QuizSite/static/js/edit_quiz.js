@@ -1,4 +1,5 @@
-function editQuiz(quizContainer, appendButton, submitButton, formPattern, choicePattern, quiz){
+function editQuiz(quizContainer, appendButton, submitButton, formPattern, choicePattern, quiz, validateUrl, itemId){
+    submitButton.prop('disabled', true)
 
     function buildQuiz(quiz, quizContainer){
         var output=[]
@@ -7,7 +8,7 @@ function editQuiz(quizContainer, appendButton, submitButton, formPattern, choice
             var question=questions[i][0]
             var choices=questions[i].slice(1,-1)
             var answers=questions[i][questions[i].length-1]
-            addQuestion(quizContainer)
+            addQuestion(quizContainer, formPattern, choicePattern)
             var questionBlock=$('#question_'+(i+1))
             var choiceBlock=$('#question_'+(i+1)).find('#choices')
             questionBlock.find('input[name=question]').val(question)
@@ -30,10 +31,13 @@ function editQuiz(quizContainer, appendButton, submitButton, formPattern, choice
         /*return [output, correct]*/
         return output
     }
-
+    console.log(submitButton)
     buildQuiz(quiz, quizContainer)
-    appendButton.click(function(){addQuestion(quizContainer)})
+    appendButton.click(function(){addQuestion(quizContainer, formPattern, choicePattern)})
     rmButton.click(function(){rmQuestion(quizContainer)})
-    submitButton.click(function(){sendData(quizContainer)})
-
+    submitButton.click(function(){sendData(quizContainer, validateUrl, itemId)})
+    $(document).on('change', ':input',
+    function() {
+        submitButton.prop('disabled', false)
+    })
 }

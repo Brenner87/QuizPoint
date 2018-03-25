@@ -11,32 +11,42 @@
 <div class="container">
     {% if form.errors or errors %}
         {% for error in form.errors %}
-            <div class="alert alert-danger">
-                {{ error }}
+            <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="text-center text-muted">{{ error }}</div>
             </div>
         {% endfor %}
         {% for error in errors %}
-            <div class="alert alert-danger">
-                {{ error }}
+            <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="text-center text-muted">{{ error }}<div>
             </div>
         {% endfor %}
     {% endif %}
+</div>
+<div class="container">
     <form method="post" class="form-horizontal" role="form" id="submitForm">
         {% csrf_token %}
-        <!--{% if messages %}
-            {% for message in messages %}
-                <p>message</p>
-            {% endfor %}
-        {% endif %}-->
         {% for hidden_field in form.hidden_fields %}
+            {% if hidden_field.errors %}
+                {% for error in hidden_filed.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+            {% endif %}
             {{ hidden_field }}
         {% endfor %}
         {% if form.non_field_errors %}
-            <div class="alert alert-danger" role="alert">
             {% for error in form.non_field_errors %}
-                {{ error }}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
             {% endfor %}
-            </div>
         {% endif %}
         <div id="quiz">
             {% for field in form.visible_fields %}
@@ -64,9 +74,27 @@
                 </div>
             {% endfor %}
         </div>
-        <button type= "button" id="append" class="btn btn-default"><span class="glyphicon glyphicon-plus text-muted"></span> <span class="text-muted">Питання</span></button>
-        <button type= "button" id="remove" class="btn btn-default"><span class="glyphicon glyphicon-minus text-muted"></span> <span class="text-muted">Питання</span></button>
-        <button type="submit" class="btn btn-default" id="submit"><span class="glyphicon glyphicon-ok text-muted"></span> <span class="text-muted">Створити</span></button>
-        <a class="button btn btn-default" id="cancel" onclick="return confirm('Всі данні, що ви ввели будуть втрачені. Ви впевнені, що хочете відмінити?')" href="{% url 'my_item_list' %}"><span class="glyphicon glyphicon-ban-circle text-muted"></span> <span class="text-muted">Відмінити</span></a>
+        <button type= "button" id="append" class="btn btn-default">
+            <span class="glyphicon glyphicon-plus text-muted"></span>
+            <span class="text-muted">Питання</span>
+        </button>
+        <button type= "button" id="remove" class="btn btn-default">
+            <span class="glyphicon glyphicon-minus text-muted"></span>
+            <span class="text-muted">Питання</span>
+        </button>
+        <button type="submit" class="btn btn-default" id="submit">
+            <span class="glyphicon glyphicon-ok text-muted"></span>
+            <span class="text-muted">
+                {% if item %}
+                    Зберегти
+                {% else %}
+                    Створити
+                {% endif %}
+            </span>
+        </button>
+        <a class="button btn btn-default" id="cancel" onclick="return confirm('Всі данні, що ви ввели будуть втрачені. Ви впевнені, що хочете відмінити?')" href="{% url 'QuizSite:my_item_list' %}">
+            <span class="glyphicon glyphicon-ban-circle text-muted"></span>
+            <span class="text-muted">Відмінити</span>
+        </a>
     </form>
 </div>

@@ -11,15 +11,19 @@
 <script src="{% static 'js/edit_quiz.js' %}" type="text/javascript"></script>
 {% endblock %}
 <script type="text/javascript">
+    var itemId={{ item.id }}
+    var validateUrl   = '{% url 'QuizSite:validate_quiz_title' %}'
     var quiz= {{ item.quiz|js }}
     $('input[name=title]').val('{{ item.title }}')
     $('input[name=description]').val('{{ item.description }}')
+    $('select[name=category]').val('{{ item.category.id }}')
+    console.log('{{ item.category }}')
     var formPatter    = $('#formPattern');
     var choicePattern = $('#choicePattern');
     var quizContainer = $('#quiz');
     var appendButton  = $('#append');
     var submitButton  = $('#submit');
     var rmButton      = $('#remove');
-    $(document).ready(editQuiz(quizContainer, appendButton, submitButton, formPattern, choicePattern, quiz))
+    $(document).ready(editQuiz(quizContainer, appendButton, submitButton, formPattern, choicePattern, quiz, validateUrl, itemId))
 </script>
 {% endblock %}

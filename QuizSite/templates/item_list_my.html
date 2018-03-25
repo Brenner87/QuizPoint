@@ -1,31 +1,41 @@
 {% extends 'base.html' %}
+{% load myfilters %}
 {% block content %}
-  <div id="headerwarp">
-  	<div class="container">
-  		<div class="row centered">
-  			<div class="col-lg-8 col-lg-offset-2">
-  				<h1 class="text-muted">Мої тести</h1>
-  			</div>
-  		</div>
+    <div id="headerwarp">
+        <div class="container">
+            <div class="row centered">
+                <div class="col-lg-8 col-lg-offset-2">
+                    <h1 class="text-muted">Мої тести {% if request.GET.cat %}<span class="badge">{% get_category request.GET.cat %}</span>{% endif %}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
         <div class="table-responsive">
-                <table class="table table-striped table-hover table-condensed">
+            <table class="table table-striped table-hover table-condensed">
                 <thead>
                     <tr class="dark">
-                        <th class="text-muted">Назва</th>
-                        <th class="text-muted">Деталі</th>
-                        <th class="text-muted">Автор</th>
-                        <th class="text-muted">Опубліковано</th>
-                        <th class="text-muted"></th>
-                        <th class="text-muted"></th>
-                        <th class="text-muted"></th>
-                        <th class="text-muted"></th>
+                        <th class="textInHeader">Назва</th>
+                        <th class="textInHeader">Категорія</th>
+                        <th class="textInHeader">Автор</th>
+                        <th class="textInHeader" style="width:12%">Опубліковано</th>
+                        <th class="textInHeader" style="width:5%"></th>
+                        <th class="textInHeader" style="width:5%"></th>
+                        <th class="textInHeader" style="width:5%"></th>
+                        <th class="textInHeader" style="width:5%"></th>
+                        <!--<th class="textInHeader" style="width:5%"></th>-->
                     </tr>
                 </thead>
                 <tbody>
-                    {% for item in items %}
+                    {% for item in item_list %}
                     <tr>
-                        <th class="text-muted">{{ item.title }}</th>
-                        <th class="text-muted">{{ item.description }}</th>
+                        <th class="text-muted">
+
+                            <div class="titleToDisplay">
+                                {{ item.title }} <span class="descriptionToDisplay">{{ item.description }}</span>
+                            </div>
+                        </th>
+                        <th class="text-muted">{{ item.category }}</th>
                         <th class="text-muted">{{ item.author }}</th>
                         <th class="text-muted">
                         {% if item.published_date %}
@@ -34,39 +44,57 @@
                         </th>
                         <th class="text-muted">
                             {% if item.published_date %}
-                                <a href="{% url 'hide' id=item.id %}" class="btn btn-default" onclick="return confirm('Прибрати тест з загального доступу?')">
-                                    <span class="glyphicon glyphicon-eye-close">
+                                <a href="{% url 'QuizSite:hide' id=item.id %}" class="btn btn-link" onclick="return confirm('Прибрати тест з загального доступу?')">
+                                    <span class="glyphicon glyphicon-eye-close text-muted changable_link" >
                                     </span>
                                 </a>
                             {% else %}
-                                <a href="{% url 'publish' id=item.id %}" class="btn btn-default" onclick="return confirm('Опублікувати тест?')">
-                                    <span class="glyphicon glyphicon-eye-open">
+                                <a href="{% url 'QuizSite:publish' id=item.id %}" class="btn btn-link" onclick="return confirm('Опублікувати тест?')">
+                                    <span class="glyphicon glyphicon-eye-open text-muted changable_link">
                                     </span>
                                 </a>
                             {% endif %}
                         </th>
                         <th class="text-muted">
-                            <a href="{% url 'edit_item' id=item.id %}" class="btn btn-default" onclick="return confirm('Редагувати тест?')">
-                                <span class="glyphicon glyphicon-pencil">
+                            <a href="{% url 'QuizSite:edit_item' id=item.id %}" class="btn btn-link" onclick="return confirm('Редагувати тест?')">
+                                <span class="glyphicon glyphicon-pencil text-muted changable_link">
                                 </span>
                             </a>
                         </th>
                         <th class="text-muted">
-                            <a href="{% url 'run_quiz' id=item.id %}" class="btn btn-default">
-                                <span class="glyphicon glyphicon-play">
+                            <a href="{% url 'QuizSite:run_quiz' id=item.id %}" class="btn btn-link">
+                                <span class="glyphicon glyphicon-play text-muted changable_link">
                                 </span>
                             </a>
                         </th>
                         <th class="text-muted">
-                            <a href="{% url 'item_delete' id=item.id %}" class="btn btn-default" onclick="return confirm('Ви впевнені, що хочете видалити тест?')">
-                                <span class="glyphicon glyphicon-remove">
-                                </span></a>
+                            <a href="{% url 'QuizSite:item_delete' id=item.id %}" class="btn btn-link" onclick="return confirm('Ви впевнені, що хочете видалити тест?')">
+                                <span class="glyphicon glyphicon-remove text-muted changable_link">
+                                </span>
+                            </a>
+                        </th>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <th colspan="8" class="text-center text-muted">
+                            {% if request.GET.q %}
+                                За вашим запитом нічого не знайдено
+                            {% else %}
+                                Вы ще не створили жодного тесту
+                            {% endif %}
                         </th>
                     </tr>
                     {% endfor %}
                 </tbody>
-                </table>
-            </div>
-  	</div>
-  </div>
+                <thead>
+                    <tr class="dark">
+                        <th colspan="8" class="textInHeader">
+                            {% include "pagination.html" with item_list=item_list request=request %}
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
 {% endblock %}

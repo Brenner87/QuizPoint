@@ -20,26 +20,35 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-        <a class="navbar-brand" href="{% url 'main' %}">QuizPoint</a>
+        <a class="navbar-brand" href="{% url 'QuizSite:main' %}">QuizPoint</a>
       </div>
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li><a href="{% url 'item_list' %}">Тести</a></li>
-          <li><a href="#">Категорії</a></li>
+          <li><a href="{% url 'QuizSite:item_list' %}">Тести</a></li>
+          <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Категорії <b class="caret"></b></a>
+              {% if template_name in 'item_list.html,main.html'|split:',' %}
+                {% show_categories %}
+              {% endif %}
+              {% if template_name == 'item_list_my.html' and user.is_authenticated %}
+                {% show_categories request.user.get_username %}
+              {% endif %}
+          </li>
+
             {% if user.is_authenticated %}
-                <li><a href="{% url 'my_item_list' %}">Створені мною</a></li>
-                <li><a href="{% url 'create_item' %}">Створити</a></li>
+                <li><a href="{% url 'QuizSite:my_item_list' %}">Створені мною</a></li>
+                <li><a href="{% url 'QuizSite:create_item' %}">Створити</a></li>
             {% endif %}
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">ІНФО <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="#">Контакти</a></li>
-              <li><a href="#">Інформація</a></li>
+              <li><a href="{% url 'QuizSite:contacts' %}">Контакти</a></li>
+              <li><a href="{% url 'QuizSite:info' %}">Інформація</a></li>
               <li class="divider"></li>
-              <li><a href="#">Навчальні матеріали</a></li>
+              <li><a href="{% url 'QuizSite:l_materials' %}">Навчальні матеріали</a></li>
               <li class="divider"></li>
-              <li><a href="#">Карта сайту</a></li>
+              <li><a href="/sitemap.xml">Карта сайту</a></li>
             </ul>
           </li>
         </ul>
@@ -49,31 +58,44 @@
               <li>
                   <form class="navbar-form navbar-left" role="search" method="GET">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Пошук" name="q">
+
+                        <input type="text" class="form-control" placeholder="Пошук" maxlength="30" name="q" value="{{ request.GET.q }}">
                     </div>
                     <button type="submit" class="btn btn-default">&nbsp<span class="glyphicon glyphicon-search"></span>&nbsp</button>
                   </form>
               </li>
             {% endif %}
             {% if user.is_authenticated %}
-                <li><a href="{% url 'logout_user' %}">Вийти({{ user.username }})</a></li>
+                <li><a href="{% url 'QuizSite:logout_user' %}">Вийти({{ user.username }})</a></li>
             {% else %}
-                <li><a href="{% url 'login_user' %}">Увійти</a></li>
+                <li><a href="{% url 'QuizSite:login_user' %}">Увійти</a></li>
             {% endif %}
         </ul>
       </div>
     </div>
   </nav>
-    {% if errors %}
-        {% for error in errors %}
-            <div class="container centered" style="margin-top:60px;">
-                <div class="alert alert-danger">
-                    <strong>{{ error|escape }}</strong>
+    {% if messages %}
+        <div class="container centered messageContainer">
+            {% for message in messages %}
+                <div class="row">
+                    <div>
+                        {% if message.tags %}
+                            {% if message.tags == 'error' %}
+                                <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                            {% else %}
+                                <div class="alert alert-{{ message.tags }} alert-dismissible fade in" role="alert">
+                            {% endif %}
+                        {% endif %}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <div class="text-center text-muted">{{ message|safe }}<div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     {% endif %}
-
   {% block content %}
   {% endblock %}
 

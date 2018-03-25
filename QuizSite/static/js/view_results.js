@@ -29,6 +29,8 @@ function viewResults(questions, quizContainer, questionPattern, choicePattern, s
         unchecked=$('input')
         unchecked.attr("disabled", "disabled")
         unchecked.addClass('disabled')
+        console.log(this)
+
     }
 
     function arraysEqual(arr1, arr2) {
@@ -42,6 +44,6 @@ function viewResults(questions, quizContainer, questionPattern, choicePattern, s
         return true;
     }
 
-    submitButton.click(function(){displayResults(questions, quizContainer, title, titleText, answers)})
+    submitButton.click(function(){displayResults(questions, quizContainer, title, titleText, answers); $(this).remove()})
 
 }

@@ -11,8 +11,12 @@ body {
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
+    padding-top: 55px
     
 
+}
+a {
+    color: inherit;
 }
 
 h1, h2, h3, h4, h5 {
@@ -43,8 +47,21 @@ nav {
     background-color: #555;
 }
 
+.textInHeader {
+    color: white;
+}
+
+.messageContainer {
+    /*margin-top: 60px;*/
+}
 
 
+.alignleft {
+	float: left;
+}
+.alignright {
+	float: right;
+}
 
 
 
@@ -59,13 +76,11 @@ nav {
 
 #headerwarp {
 	text-align: center;
-	margin-top: 80px
+	/*margin-top: 80px*/
 }
 
-#result {
-	text-align: center;
-	margin-top: 80px
-}
+
+
 
 
 
@@ -78,3 +93,91 @@ nav {
 	margin: 20px;
 }
 
+.letsStart {
+    margin-top: 80px;
+    font-size: 150px;
+
+}
+
+/* Tooltip container */
+.titleToDisplay {
+    position: relative;
+    display: inline-block;
+    /*border-bottom: 1px dotted black;  If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.titleToDisplay .descriptionToDisplay {
+    visibility: hidden;
+    width: 300px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    /*bottom: -260%;*/
+    left: 100px;
+    /*right: 50%;*/
+    margin-left: -60px;
+
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+/*.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}*/
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.titleToDisplay:hover .descriptionToDisplay {
+    visibility: visible;
+    opacity: 1;
+}
+
+.changable_link{
+    position: relative;
+    transition: 0.5s ease;
+}
+
+
+.changable_link:hover {
+    color: black;
+    /*font-size: 120%;*/
+    transform: scale(1.5, 1.5);
+}
+
+.starting_logo{
+    position: relative;
+    transition: 0.5s ease;
+}
+
+
+.starting_logo:hover {
+    color: black;
+    /*font-size: 120%;*/
+    transform: scale(1.5, 1.5) rotate(360deg)  ;
+}
+
+.move {
+    position: relative;
+    transition: 0.5s ease;
+    opacity:0;
+}
+
+.move:hover {
+    opacity:1;
+    color: black;
+}

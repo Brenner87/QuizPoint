@@ -1,0 +1,33 @@
+{% load myfilters %}
+<div class="pull-right">
+    {% if item_list.has_previous %}
+        {% with params=request.GET.urlencode %}
+            <a href="{% build_url 'page' 1 params %}">
+                <span class="glyphicon glyphicon-step-backward changable_link"></span>
+            </a>
+            <a href="{% build_url 'page' item_list.previous_page_number params %}">
+                <span class="glyphicon glyphicon-chevron-left changable_link"></span>
+            </a>
+        {% endwith %}
+
+    {% else %}
+        <span class="glyphicon glyphicon-step-backward"></span>
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    {% endif %}
+    <span class="current">
+        {{ item_list.number }} of {{ item_list.paginator.num_pages }}
+    </span>
+    {% if item_list.has_next %}
+        {% with params=request.GET.urlencode %}
+            <a href="{% build_url 'page' item_list.next_page_number params %}">
+                <span class="glyphicon glyphicon-chevron-right changable_link"></span>
+            </a>
+            <a href="{% build_url 'page' item_list.paginator.num_pages params %}">
+                <span class="glyphicon glyphicon-step-forward changable_link"></span>
+            </a>
+        {% endwith %}
+    {% else %}
+        <span class="glyphicon glyphicon-chevron-right"></span>
+        <span class="glyphicon glyphicon-step-forward"></span>
+    {% endif %}
+</div>
