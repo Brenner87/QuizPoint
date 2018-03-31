@@ -11,33 +11,34 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR        = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-STUFF_DIR       = 'D:\OneDrive\PythonLearning\QuizPointStuff'
-DB_DIR          = os.path.join(STUFF_DIR, 'db_cred')
-SECRET_KEY_DIR  = os.path.join(STUFF_DIR, 'secret_key')
-#DB_USER         = 'vagrant'
-DB_USER         = 'quizpoint'
-DB_NAME         = 'quizpoint'
-#DB_HOST         = '192.168.56.102'
-DB_HOST         = 'localhost'
-#DB_PORT         = '5432'
-DB_PORT         = ''
-DB_PASSWORD     = ''
-#try:
-#    DB_PASSWORD = os.environ['QUIZPOINT_DB_PASS']
-#except Exception:
-#    DB_PASSWORD =open(os.path.join(DB_DIR, DB_USER), 'r')
 
+is_prod = os.environ.get('IS_HEROKU', None)
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
+if is_prod:
+    #here goes all your heroku config
+    DB_USER     = 'quizpoint'
+    DB_NAME     = 'quizpoint'
+    DB_HOST     = 'localhost'
+    DB_PORT     = ''
+    DB_PASSWORD = ''
+    SECRET_KEY  = ''
+else:
 
-# SECURITY WARNING: keep the secret key used in production secret!
-try:
-    SECRET_KEY = os.environ['QUIZPOINT_SECRET_KEY']
-except Exception:
+    STUFF_DIR       = 'D:\OneDrive\PythonLearning\QuizPointStuff'
+    DB_DIR          = os.path.join(STUFF_DIR, 'db_cred')
+    SECRET_KEY_DIR  = os.path.join(STUFF_DIR, 'secret_key')
+    DB_USER         = 'vagrant'
+    DB_NAME         = 'quizpoint'
+    DB_HOST         = '192.168.56.102'
+    DB_PORT         = '5432'
+    DB_PASSWORD     = open(os.path.join(DB_DIR, DB_USER), 'r')
+    # Quick-start development settings - unsuitable for production
+    # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
+    # SECURITY WARNING: keep the secret key used in production secret!
     with open(os.path.join(SECRET_KEY_DIR, 'QuizPoint')) as f:
         SECRET_KEY = f.read().strip()
 
