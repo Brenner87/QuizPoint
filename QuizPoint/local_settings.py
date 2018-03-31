@@ -13,26 +13,19 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR        = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-STUFF_DIR       = 'D:\OneDrive\PythonLearning\QuizPointStuff'
-DB_DIR          = os.path.join(STUFF_DIR, 'db_cred')
-SECRET_KEY_DIR  = os.path.join(STUFF_DIR, 'secret_key')
-DB_USER         = 'vagrant'
-DB_NAME         = 'quizpoint'
-DB_HOST         = '192.168.56.102'
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-with open(os.path.join(SECRET_KEY_DIR, 'QuizPoint')) as f:
-    SECRET_KEY = f.read().strip()
+SECRET_KEY = '1k9r#2&e$jwj1=2g)bin4)373(0e(hm48v)7ju@=+fw91n!(_h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.88.248']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -86,12 +79,8 @@ WSGI_APPLICATION = 'QuizPoint.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': DB_NAME,
-        'USER': DB_USER,
-        'PASSWORD': open(os.path.join(DB_DIR, DB_USER), 'r'),
-        'HOST': DB_HOST,
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -131,5 +120,5 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
-STATIC_URL  = '/static/'
-STATIC_ROOT=os.path.join(BASE_DIR, 'QuizSite', 'static')
+
+STATIC_URL = '/static/'

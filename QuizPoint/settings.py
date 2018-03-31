@@ -13,19 +13,38 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR        = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STUFF_DIR       = 'D:\OneDrive\PythonLearning\QuizPointStuff'
+DB_DIR          = os.path.join(STUFF_DIR, 'db_cred')
+SECRET_KEY_DIR  = os.path.join(STUFF_DIR, 'secret_key')
+#DB_USER         = 'vagrant'
+DB_USER         = 'quizpoint'
+DB_NAME         = 'quizpoint'
+#DB_HOST         = '192.168.56.102'
+DB_HOST         = 'localhost'
+#DB_PORT         = '5432'
+DB_PORT         = ''
+DB_PASSWORD     = ''
+#try:
+#    DB_PASSWORD = os.environ['QUIZPOINT_DB_PASS']
+#except Exception:
+#    DB_PASSWORD =open(os.path.join(DB_DIR, DB_USER), 'r')
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '1k9r#2&e$jwj1=2g)bin4)373(0e(hm48v)7ju@=+fw91n!(_h'
+try:
+    SECRET_KEY = os.environ['QUIZPOINT_SECRET_KEY']
+except Exception:
+    with open(os.path.join(SECRET_KEY_DIR, 'QuizPoint')) as f:
+        SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
 
 # Application definition
@@ -79,10 +98,17 @@ WSGI_APPLICATION = 'QuizPoint.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': DB_NAME,
+        'USER': DB_USER,
+        'PASSWORD': DB_PASSWORD,
+        'HOST': DB_HOST,
+        'PORT': DB_PORT,
     }
 }
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
 
 # Password validation
@@ -120,5 +146,5 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
-
-STATIC_URL = '/static/'
+STATIC_URL  = '/static/'
+STATIC_ROOT=os.path.join(BASE_DIR, 'QuizSite', 'static')

@@ -1,0 +1,1 @@
+web: gunicorn QuizPoint.wsgi --log-file -
