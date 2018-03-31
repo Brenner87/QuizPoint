@@ -46,7 +46,7 @@ class QuizForm(forms.ModelForm):
                     raise forms.ValidationError('Варіанти відповіді можуть бути лише цифри')
                 if i > len(question[1:-1]):
                     raise forms.ValidationError('Варіанта відповіді з таким номером не існує')
-                if i <= 0:
+                if i and i <= 0:
                     raise forms.ValidationError('Варіанти відповіді не можуть бути менше 0')
 
 

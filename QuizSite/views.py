@@ -230,7 +230,7 @@ def validate_quiz_title(request):
     title=request.GET.get('title', None)
     id=request.GET.get('id', None)
     data={
-        'is_taken' : Item.object.exclude(id=id).filter(title__iexact=title).exists()
+        'is_taken' : Item.objects.exclude(id=id).filter(title__iexact=title).exists()
     }
     return JsonResponse(data)
 

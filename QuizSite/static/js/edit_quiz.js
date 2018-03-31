@@ -31,7 +31,6 @@ function editQuiz(quizContainer, appendButton, submitButton, formPattern, choice
         /*return [output, correct]*/
         return output
     }
-    console.log(submitButton)
     buildQuiz(quiz, quizContainer)
     appendButton.click(function(){addQuestion(quizContainer, formPattern, choicePattern)})
     rmButton.click(function(){rmQuestion(quizContainer)})

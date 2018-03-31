@@ -86,7 +86,7 @@ function parceForm(form, name, questionNumber){
         }
     }
     var alertMessages=validateForm(name, questionText, question, answers, questionNumber)
-    question.push(answers.split(',').map(Number).sort())
+    question.push(answers.split(',').filter(Boolean).map(Number).sort())
     question.unshift(questionText)
     return [question, alertMessages]
 }
