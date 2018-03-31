@@ -23,9 +23,10 @@ if is_prod:
     DB_USER     = 'quizpoint'
     DB_NAME     = 'quizpoint'
     DB_HOST     = 'localhost'
-    DB_PORT     = ''
-    DB_PASSWORD = ''
-    SECRET_KEY  = ''
+    DB_PORT     = os.environ.get('DB_PORT', '')
+    DB_PASSWORD = os.environ.get('DB_QUIZPOINT_PASS', '')
+    SECRET_KEY  = os.environ.get('DB_QUIZPOINT_KEY', '')
+
 else:
 
     STUFF_DIR       = 'D:\OneDrive\PythonLearning\QuizPointStuff'
