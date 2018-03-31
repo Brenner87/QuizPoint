@@ -10,8 +10,6 @@ function runQuiz(questions, quizContainer, questionPattern, choicePattern, submi
         }
         /*Below string shouldn't be calculated each time when function called*/
         var state='('+(count+1)+'/'+questions.length+')'
-        console.log(state)
-        console.log($(title))
         $(title).find('h1').text(titleText+' '+state)
         var output=generateQuestions(questions, questionPattern, choicePattern)
         quizContainer.find('form div:first').html(output[count])
