@@ -27,6 +27,15 @@ if is_prod:
     DB_PASSWORD = os.environ.get('DB_QUIZPOINT_PASS', '')
     SECRET_KEY  = os.environ.get('DB_QUIZPOINT_KEY', '')
 
+if is_stage:
+    #here goes all your STAGE config
+    DB_USER     = 'vagrant'
+    DB_NAME     = 'quizpoint'
+    DB_HOST     = '192.168.56.102'
+    DB_PORT     = os.environ.get('DB_PORT', '')
+    DB_PASSWORD = os.environ.get('DB_QUIZPOINT_PASS', '')
+    SECRET_KEY  = os.environ.get('DB_QUIZPOINT_KEY', '')
+
 else:
 
     STUFF_DIR       = 'D:\OneDrive\PythonLearning\QuizPointStuff'
