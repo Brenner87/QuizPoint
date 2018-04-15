@@ -38,7 +38,6 @@ elif is_stage:
     SECRET_KEY  = os.environ.get('DB_QUIZPOINT_KEY', '')
 
 else:
-
     STUFF_DIR       = 'D:\OneDrive\PythonLearning\QuizPointStuff'
     DB_DIR          = os.path.join(STUFF_DIR, 'db_cred')
     SECRET_KEY_DIR  = os.path.join(STUFF_DIR, 'secret_key')
