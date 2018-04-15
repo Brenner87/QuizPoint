@@ -27,7 +27,7 @@ if is_prod:
     DB_PASSWORD = os.environ.get('DB_QUIZPOINT_PASS', '')
     SECRET_KEY  = os.environ.get('DB_QUIZPOINT_KEY', '')
 
-if is_stage:
+elif is_stage:
     #here goes all your STAGE config
     DB_USER     = 'vagrant'
     DB_NAME     = 'quizpoint'
