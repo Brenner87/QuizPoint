@@ -17,6 +17,7 @@ import dj_database_url
 BASE_DIR        = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 is_prod = os.environ.get('IS_HEROKU', None)
+is_stage = os.environ.get('IS_STAGE', None)
 
 if is_prod:
     #here goes all your heroku config
