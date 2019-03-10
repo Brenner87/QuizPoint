@@ -20,8 +20,8 @@ is_stage = os.environ.get('IS_STAGE', None)
 
 if is_prod:
     #here goes all your heroku config
-    DB_USER       = os.environ.get('quizpoint', None)
-    DB_NAME       = os.environ.get('quizpoint', None)
+    DB_USER       = os.environ.get('DB_USER', None)
+    DB_NAME       = os.environ.get('DB_NAME', None)
     DB_HOST       = os.environ.get('PROJ_DB_ADDR', 'localhost')
     DB_PORT       = os.environ.get('DB_PORT', '')
     DB_PASSWORD   = os.environ.get('DB_QUIZPOINT_PASS', '')
