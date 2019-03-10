@@ -16,10 +16,12 @@ import sys
 
 
 from django.core.wsgi import get_wsgi_application
-
-sys.path.append('/home/vagrant/QuizPoint')
+PROJ_PATH = os.environ.get('PROJ_PATH', 'None')
+ENV_PATH  = os.environ.get('WSGI_CONF', 'None')
+sys.path.append(PROJ_PATH)
 # adjust the Python version in the line below as needed
-sys.path.append('/home/vagrant/env/quizpoint/lib/python3.6/site-packages')
+
+sys.path.append('{}/lib/python3.6/site-packages'.format($ENV_PATH)
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "QuizPoint.settings")
 

@@ -9,27 +9,26 @@ https://docs.djangoproject.com/en/2.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
-
 import os
 import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR        = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-is_prod = os.environ.get('IS_HEROKU', None)
+is_prod = os.environ.get('IS_PROD', None)
 is_stage = os.environ.get('IS_STAGE', None)
 
 if is_prod:
     #here goes all your heroku config
-    DB_USER     = 'quizpoint'
-    DB_NAME     = 'quizpoint'
-    DB_HOST     = 'localhost'
-    DB_PORT     = os.environ.get('DB_PORT', '')
-    DB_PASSWORD = os.environ.get('DB_QUIZPOINT_PASS', '')
-    SECRET_KEY  = os.environ.get('DB_QUIZPOINT_KEY', '')
-
+    DB_USER       = os.environ.get('quizpoint', None)
+    DB_NAME       = os.environ.get('quizpoint', None)
+    DB_HOST       = os.environ.get('PROJ_DB_ADDR', 'localhost')
+    DB_PORT       = os.environ.get('DB_PORT', '')
+    DB_PASSWORD   = os.environ.get('DB_QUIZPOINT_PASS', '')
+    SECRET_KEY    = os.environ.get('DB_QUIZPOINT_KEY', '')
 elif is_stage:
     #here goes all your STAGE config
+    
     DB_USER     = 'vagrant'
     DB_NAME     = 'quizpoint'
     DB_HOST     = '192.168.56.102'
@@ -55,8 +54,7 @@ else:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
-
+ALLOWED_HOSTS = os.environ.get('PROJ_ALLOWED_HOSTS', '127.0    .0.1').split(' ')
 
 # Application definition
 
