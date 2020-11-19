@@ -11,9 +11,7 @@ services:
       timeout: 5s
       retries: 5
     volumes:
-#      - pg_data:/var/lib/postgresql/data
-#      - pg_backups:/pg_backups
-      - ./init_db.sh:/docker-entrypoint-initdb.d/init_db.sh
+      - ./container/init_db.sh:/docker-entrypoint-initdb.d/init_db.sh
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -22,6 +20,11 @@ services:
       - APP_DB=quizpoint
   web:
     build: .
+    healthcheck:
+      test: ["CMD-SHELL", "python3 ./container/web_healthcheck.py"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
     ports:
       - "8000:8000"
     environment:

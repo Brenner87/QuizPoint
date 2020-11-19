@@ -6,4 +6,4 @@ USER quizpoint
 EXPOSE 8000
 
 #CMD ["uwsgi", "--ini", "./uwsgi.ini"]
-CMD ["/bin/bash", "./init.sh"]
+CMD ["/bin/bash", "./container/init.sh"]
