@@ -24,8 +24,8 @@ if is_prod:
     DB_NAME       = os.environ.get('DB_NAME', None)
     DB_HOST       = os.environ.get('PROJ_DB_ADDR', 'localhost')
     DB_PORT       = os.environ.get('DB_PORT', '')
-    DB_PASSWORD   = os.environ.get('DB_PASS', '')
-    SECRET_KEY    = os.environ.get('DB_KEY', '')
+    DB_PASSWORD   = os.environ.get('DB_QUIZPOINT_PASS', '')
+    SECRET_KEY    = os.environ.get('DB_QUIZPOINT_KEY', '')
 elif is_stage:
     #here goes all your STAGE config
     
@@ -54,7 +54,7 @@ else:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = os.environ.get('PROJ_ALLOWED_HOSTS', '127.0    .0.1').split(' ')
+ALLOWED_HOSTS = os.environ.get('PROJ_ALLOWED_HOSTS', '127.0..0.1').split(' ')
 
 # Application definition
 

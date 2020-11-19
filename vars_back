@@ -1,0 +1,13 @@
+PROJ_ALLOWED_HOSTS=*
+PROJ_NAME=QuizPoint
+PROJ_DB_ADDR=192.168.56.112
+PROJ_PATH=/opt/quizpoint
+WSGI_CONF=$PROJ_PATH
+IS_PROD=true
+DB_PORT=5432
+DB_USER=postgres
+DB_NAME=quizpoint
+DB_QUIZPOINT_PASS=postgres
+DB_QUIZPOINT_KEY='12139qeu09fads05534--rwerwesgfdgs333###rfgdsgdfg###5afsgfdgdgfdgsd&'
+PROJ_USER=quizpoint
+PROJ_GROUP=quizpoint

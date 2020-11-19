@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:9.6
+    expose:
+      - 5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+#      - pg_data:/var/lib/postgresql/data
+#      - pg_backups:/pg_backups
+      - ./init_db.sh:/docker-entrypoint-initdb.d/init_db.sh
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - APP_DB_USER=quizpoint
+      - APP_DB_PASSWD=quizpoint
+      - APP_DB=quizpoint
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - PROJ_ALLOWED_HOSTS=*
+      - PROJ_NAME=QuizPoint
+      - PROJ_DB_ADDR=db
+      - PROJ_PATH=/opt/quizpoint
+      - WSGI_CONF=/opt/quizpoint
+      - IS_PROD=true
+      - DB_PORT=5432
+      - DB_USER=quizpoint
+      - DB_NAME=quizpoint
+      - DB_QUIZPOINT_PASS=quizpoint
+      - DB_QUIZPOINT_KEY=12139qeu09fads05534--rwerwesgfdgs333###rfgdsgdfg###5afsgfdgdgfdgsd&
+      - PROJ_USER=quizpoint
+      - PROJ_GROUP=quizpoint
+    depends_on:
+      - db
