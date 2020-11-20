@@ -18,6 +18,36 @@ services:
       - APP_DB_USER=quizpoint
       - APP_DB_PASSWD=quizpoint
       - APP_DB=quizpoint
+
+  migration:
+    build: .
+    healthcheck:
+      test: ["CMD-SHELL", "python3 ./container/web_healthcheck.py"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    environment:
+      - PROJ_ALLOWED_HOSTS=*
+      - PROJ_NAME=QuizPoint
+      - PROJ_DB_ADDR=db
+      - PROJ_PATH=/opt/quizpoint
+      - WSGI_CONF=/opt/quizpoint
+      - IS_PROD=true
+      - DB_PORT=5432
+      - DB_USER=quizpoint
+      - DB_NAME=quizpoint
+      - DB_QUIZPOINT_PASS=quizpoint
+      - DB_QUIZPOINT_KEY='12139qeu09fads05534--rwerwesgfdgs333###rfgdsgdfg###5afsgfdgdgfdgsd&'
+      - PROJ_USER=quizpoint
+      - PROJ_GROUP=quizpoint
+      - PROJ_SUPERUSER=admin
+      - PROJ_SUPERUSER_MAIL=admin@example.com
+      - PROJ_SUPERUSER_PASS=admin
+    depends_on:
+      - db
+    command:
+      ./container/run_migrations.sh
+
   web:
     build: .
     healthcheck:
@@ -38,8 +68,20 @@ services:
       - DB_USER=quizpoint
       - DB_NAME=quizpoint
       - DB_QUIZPOINT_PASS=quizpoint
-      - DB_QUIZPOINT_KEY=12139qeu09fads05534--rwerwesgfdgs333###rfgdsgdfg###5afsgfdgdgfdgsd&
+      - DB_QUIZPOINT_KEY='12139qeu09fads05534--rwerwesgfdgs333###rfgdsgdfg###5afsgfdgdgfdgsd&'
       - PROJ_USER=quizpoint
       - PROJ_GROUP=quizpoint
     depends_on:
       - db
+      - migration
+
+  nginx:
+    image: nginx:alpine
+    expose: 
+      - 80
+    volumes:
+      - ./container/nginx_default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - web
+    ports:
+      - "80:80"
